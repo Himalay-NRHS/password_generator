@@ -17,17 +17,17 @@ const generatePassword = useCallback(() => {
   let password = "";
   let str="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   if(chars){
-    str+="!@#$%^&*()_+-=[]{}|;':,./<>?";
+    str+="!@#$%^&*?";
   }
   if(numbers){
     str+="0123456789";
   }
   for (let i = 1; i < length; i++) {
-    password += str[Math.floor(Math.random() * str.length+1)];
+    password += str[Math.floor(Math.random() * str.length)];
   }
  setPassword(password);
 },[length,chars,numbers])
-useEffect(()=>{generatePassword();console.log(password)},[length,chars,numbers])
+useEffect(()=>{generatePassword();console.log(password)},[length,chars,numbers,generatePassword])
 
   return (
   <>
@@ -35,13 +35,13 @@ useEffect(()=>{generatePassword();console.log(password)},[length,chars,numbers])
   <div className="flex bg-slate-400 w-2/3 h-2/5 rounded-xl flex-col items-center">
     <div className="flex items-center justify-center w-2/3 mt-10">
       <div className="bg-white w-3/4 h-14 rounded-xl text-black text-center text-xl py-3 ">{password}</div>
-      <button className="bg-blue-500 text-white h-[52px] px-4 rounded-xl ml-4">
+      <button className="bg-blue-500 text-white h-[52px] px-4 rounded-xl ml-4"  onClick={()=>{window.navigator.clipboard.writeText(password)}}>
         Copy
       </button>
     </div>  
     <div className="w-auto h-auto">
       <div className="flex">
-      <input type="range" className="w-full h-full mt-1" min="7" max="100" value={length} onChange={(e)=>setLength(e.target.value)}/>
+      <input type="range" className="w-full h-full mt-1" min="7" max="40" value={length} onChange={(e)=>setLength(e.target.value)}/>
       <label className="ml-6">length:{length}</label>
 </div>
 </div>  
